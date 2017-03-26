@@ -21,40 +21,41 @@
 		align-items: center;
 		margin-top: calc(50px + 2.25em);
 		&>h1 {
-			font-size: 1.5em;
+			font-size: 2.5em;
 			cursor: pointer;
 			position: relative;
-			margin-bottom: 2em;
-			&::after {
-				content: "";
-				position: absolute;
-				bottom: 0;
-				left: 50%;
-				width: 0%;
-				height: 2px;
-				background-color: $color;
-				transition-duration: 0.2s;
-			}
-			&:hover {
-				color: $color;
-				&::after {
-					width: 100%;
-					left: 0;
-				}
-			}
-		}
-		&>h1:first-of-type {
-			margin-right: 1em;
+			// margin-bottom: 2em;
 			color: $color;
-			&::after {
-				width: 100%;
-				left: 0;
-			}
+			// &::after {
+			// 	content: "";
+			// 	position: absolute;
+			// 	bottom: 0;
+			// 	left: 50%;
+			// 	width: 0%;
+			// 	height: 2px;
+			// 	background-color: $color;
+			// 	transition-duration: 0.2s;
+			// }
+			// &:hover {
+			// 	color: $color;
+			// 	&::after {
+			// 		width: 100%;
+			// 		left: 0;
+			// 	}
+			// }
+		}
+		// &>h1:first-of-type {
+		// 	margin-right: 1em;
+		// 	color: $color;
+		// 	&::after {
+		// 		width: 100%;
+		// 		left: 0;
+		// 	}
 
-		}
-		&>h1:last-of-type {
-			margin-left: 1em;
-		}
+		// }
+		// &>h1:last-of-type {
+		// 	margin-left: 1em;
+		// }
 	}
 	&>#movies {
 		display: flex;
@@ -79,6 +80,7 @@
 			transform: translateY(100%);
 			opacity: 0;
 			&:hover h2 {
+				color: #a73737;
 				transform: translateY(-100%) scale(1.1);
 				text-shadow: 0px 0px 2.5px #000, 0px 0px 5px #000, 0px 0px 7.5px #000;
 			}
@@ -122,7 +124,7 @@
 		}
 	}
 	.loader-show {
-		background: url('../public/icons/ring-alt.gif') no-repeat center;
+		background: url('icons/ring-alt.gif') no-repeat center;
 	}
 	.loader-hide {
 		background: transparent;

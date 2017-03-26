@@ -10,29 +10,36 @@
 	transform: scaleY(0);
 	transform-origin: 50% 100%;
 	transition-duration: 0.3s;
+	background: linear-gradient(to bottom, rgba(0,0,0, 0.45) , rgba(0,0,0, 0.45) ), url('img/cityweb.jpg') no-repeat center;
+	background-size: cover;
 	&>.st-title {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
 		text-align: center;
-		background: url('../public/img/cityweb.jpg') no-repeat center;
-		background-size: cover;
+		background: transparent;
 		position: relative;
+		transform: translateY(100px);
+		opacity: 0;
+		transition-duration: 0.2s;
 		&::after {
 			content: "";
 			position: absolute;
-			top: 0;
-			left: 0;
-			height: 100%;
-			width: 100%;
-			background: rgba(#000, 0.45);
+			bottom: 0%;
+			left: 10%;
+			width: 80%;
+			height: 1px;
+			background: #fff;
 		}
 		&>h1 {
 			margin-top: 120px;
 			margin-bottom: 10px;
 			z-index: 2;
 			text-shadow: 0px 0px 2.5px #000;
+			transform: translateY(50px);
+			opacity: 0;
+			transition-duration: 0.3s;
 			@media #{$mq-800} {
 				margin-top: 100px;
 				margin-bottom: 20px;
@@ -45,10 +52,16 @@
 			max-width: 750px;
 			z-index: 2;
 			text-shadow: 0px 0px 2.5px #000;
+			transform: translateY(50px);
+			opacity: 0;
+			transition-duration: 0.3s;
 		}
 		&>h2 {
 			z-index: 2;
 			text-shadow: 0px 0px 2.5px #000;
+			transform: translateY(50px);
+			opacity: 0;
+			transition-duration: 0.3s;
 		}
 	}
 	&>#times {
@@ -60,26 +73,23 @@
 		width: 90%;
 		max-width: 600px;
 		margin: auto;
-		background: #fff;
+		background: transparent;
+		padding-bottom: 50px;
+		position: relative;
+		opacity: 0;
+		transform: translateY(100px);
+		transition-duration: 0.3s;
 		&>.showtime {
 			@include center;
 			flex-direction: column;
 			justify-content: center;
 			width: 100%;
 			background-color: #fff;
-			@include headerShadow;
-			margin: 10px auto;
-			// padding: 15px 0;
+  			box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+			margin: 30px auto 10px auto;
 			text-align: center;
-			// @media #{$mq-800}{
-			// 	width: 40%;
-			// 	padding-left: 30px;
-			// 	padding-right: 30px;
-			// 	// border: 2px solid #fff;
-			// }
+			border-bottom: 7px solid $color;
 			&>div{
-				// width: 100%;
-				// max-width: 600px;
 				@include center;
 				flex-direction: column;
 				margin-top: 20px;
@@ -94,16 +104,25 @@
 					@include center;
 					justify-content: space-between;
 					margin-bottom: 20px;
-					// &>button {
-					// 	margin-left: 5%;
-					// }
-					// &>h4 {
-					// 	margin-right: 5%;
-					// }
+					position: relative;
+					&::after {
+						content: "";
+						position: absolute;
+						bottom: -10px;
+						left: -2.5%;
+						height: 1px;
+						width: 105%;
+						background-color: rgba(#000, 0.25);
+					}
+				}
+				&>div:last-of-type{
+					&::after {
+						display: none;
+					}
 				}
 			}
 			&>h3 {
-				margin: auto;
+				margin: 20px auto auto auto;
 				font-size: 1.75em;
 				color: $color;
 				width: 90%;
@@ -116,15 +135,16 @@
 			& button {
 				height: 40px;
 				// width: 140px;
-				background-color: $color;
-				color: $color;
+				background-color: #fff;
 				border: none;
 				outline: none;
 				position: relative;
 				overflow: hidden;
 				// margin-bottom: 10px;
 				padding: 5px 10px;
-				color: #fff;
+				box-sizing: border-box;
+				color: $color;
+				border: 1px solid $color;
 				&::before {
 					content: "BUY TICKETS";
 					position: absolute;
@@ -137,44 +157,64 @@
 					display: flex;
 					justify-content: center;
 					align-items: center;
-					transform: translateY(100%);
+					transform: translateY(-100%);
 					transition-duration: 0.2s;
-					transition-delay: 0.05s;
 				}
 				&::after {
 					content: "";
 					position: absolute;
 					top: 0;
 					left: 0;
-					width: 0%;
-					height: 100%;
-					background-color: #a73737;
+					width: 100%;
+					height: 0%;
+					background-color: $color;
 					box-sizing: border-box;
 					transition-duration: 0.2s;
 				}
 				&:hover::after {
-					width: 100%;
+					height: 100%;
 				}
 				&:hover::before {
 					transform: translateY(0%);
+					transition-delay: 0.05s;
 				}
-			}
-		}
-		&>.show-time:nth-of-type(odd) {
-			@media #{$mq-800} {
-				border-right: 1px solid #fff;
-			}
-		}
-		&>.show-time:nth-of-type(even) {
-			@media #{$mq-800} {
-				border-left: 1px solid #fff;
 			}
 		}
 	}
 }
-
 .showtimes-show {
 	transform: scaleY(1);
+	transition: transform 0.3s 0s;
+	&>.st-title {
+		transform: translateY(0px);
+		opacity: 1;
+		transition-delay: 0.15s;
+		&>h1 {
+			transform: translateY(0px);
+			opacity: 1;
+			transition-delay: 0.25s;
+		}
+		&>p{
+			transform: translateY(0px);
+			opacity: 1;
+			transition-delay: 0.35s;
+		}
+		&>h2 {
+			transform: translateY(0px);
+			opacity: 1;
+			transition-delay: 0.45s;
+		}
+	}
+	&> #times {
+		opacity: 1;
+		transform: translateY(0px);
+		transition-delay: 0.8s;
+		&> .showtime {
+			opacity: 1;
+			transform: translateY(0px);
+			transition-delay: 0.8s;
+		}
+	}	
 } 
 
 .time-wrapper h4 {
@@ -203,5 +243,5 @@
 
 .backtoresults-show {
 	transform: scaleY(1);
-	transition-delay: 0.3s
+	transition-delay: 0.6s
 }
