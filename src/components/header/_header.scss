@@ -1,0 +1,42 @@
+.header {
+	height: 60px;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: #a73737; /* fallback for old browsers */
+	background: -webkit-linear-gradient(to top, #a73737 , #7a2828); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to top, #a73737 , #7a2828); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    display: flex;
+	justify-content:space-between;
+	align-items: center;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	z-index: 1000000;
+	transition-duration: 0.4s;
+	& h1 {
+		color: #fff;
+		margin-left: 10px;
+		font-weight: 100;
+		letter-spacing: -2px;
+		font-size: 25px;
+		cursor: pointer;
+	}
+	& #search {
+		cursor: pointer;
+		background-color: transparent;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 50px;
+		width: 50px;
+		&>img {
+			height: 20px;
+			width: 20px;
+			margin: auto;
+		}
+	}
+}
+.header-hide {
+	transform: translateY(-10%) scale(0.9);
+	transition-duration: 0.2;
+}

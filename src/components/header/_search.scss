@@ -1,0 +1,106 @@
+.search-zip {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 60px;
+	width: 100%;
+	background-color: #fff;
+	z-index: 100000001;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	transform: translateY(-120%);
+	transition-duration: 0.2s;
+	& input {
+		height: 50px;
+		border: none;
+		width: 100%;
+		color:  #a73737;
+		text-align: center;
+		outline: none;
+		margin: 0;
+		padding: 0;
+	}
+	& button{
+		border: none;
+		outline: none;
+		color: #a73737;
+		position: relative;
+		box-sizing: border-box;
+		height: 60px;
+		background: #fff;
+		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		&::before {
+			content: "GO!";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			color: #fff;
+			z-index: 2;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			transform: translateY(100%);
+			transition-duration: 0.2s;
+			transition-delay: 0.05s;
+		}
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 0%;
+			height: 100%;
+			background-color: #a73737;
+			box-sizing: border-box;
+			transition-duration: 0.2s;
+		}
+		&:hover::after {
+			width: 100%;
+		}
+		&:hover::before {
+			transform: translateY(0%);
+		}
+	}
+	& #back {
+		width: 80px;
+		font-size: 0.8em;
+		border-right: 1px solid #a73737;
+		&::before {
+			content: "BACK";
+		}
+	}
+	& #clear {
+		width: 50px;
+		border-left: 1px solid #a73737;
+		&::before {
+			content: "X";
+		}
+		&::after {
+			position: absolute;
+			right: 0;
+		}
+	}
+	& #go {
+		width: 80px;
+		border-left: 1px solid #a73737;
+		&::after {
+			width: 100%;
+		}
+		&::before{
+			content: "GO!";
+			transform: translateY(0%);
+		}
+	}
+}
+
+.search-zip-show {
+	transform: translateY(0%);
+	transition-delay: 0.15s;
+}
