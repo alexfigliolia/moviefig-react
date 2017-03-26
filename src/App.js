@@ -6,7 +6,6 @@ import Movies from './components/page/Movies.js';
 import Showtimes from './components/page/Showtimes.js';
 import Back from './components/page/Backtoresults.js';
 import axios from 'axios';
-import './App.css';
 
 class App extends Component {
   constructor(props){
@@ -157,6 +156,8 @@ class App extends Component {
       var  d = new Date();
       var today = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
       var zip = self.state.zip;
+      var hours = d.getHours();
+      console.log(hours);
       self.setState({
         "titleClicked" : self.state.movieTitles[i],
         "descClicked" : self.state.movieDescs[i],
@@ -176,11 +177,15 @@ class App extends Component {
               return index === self.indexOf(elem);
           });
           theaters.forEach(function(currentValue, index, array) {
-            // console.log(currentValue);
             var st = [currentValue];
               for (var z = 0; z < response.data[i].showtimes.length; z++) {
                 if(currentValue === response.data[i].showtimes[z].theatre.name) {
-                  st.push( formatDate(response.data[i].showtimes[z].dateTime) );
+                  var show = response.data[i].showtimes[z].dateTime;
+                  var t = show.substring(11);
+                  var h = t.substring(2, 0);
+                  if(hours < h) {
+                    st.push(formatDate(show));
+                  }
                 }
               }
               showtimes.push(st);
@@ -198,15 +203,22 @@ class App extends Component {
   }
 
   backToResults(){
-    this.setState({
-      "titleClicked" : "",
-      "descClicked" : "",
+    var self = this;
+    self.setState({
       "showtimeClasses" : "showtimes",
       "backClasses" : "backtoresults"
     });
-    document.getElementById('showTimes').scrollTop = 0;
+    setTimeout(function(){
+      self.setState({
+        "titleClicked" : "",
+        "descClicked" : "",
+        "theatersForItem" : [],
+        "showtimes" : []
+      });
+      document.getElementById('showTimes').scrollTop = 0;
+    }, 350);
   }
-
+  
   render() {
     return (
       <div className="App">

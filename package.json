@@ -1,5 +1,5 @@
 {
-  "name": "weather",
+  "name": "moviefig-react",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://alexfigliolia.github.io/moviefig-react",
@@ -13,8 +13,7 @@
   "dependencies": {
     "axios": "^0.15.3",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-places-autocomplete": "^4.0.4"
+    "react-dom": "^15.4.2"
   },
   "scripts": {
     "build-css": "node-sass src/ -o src/",

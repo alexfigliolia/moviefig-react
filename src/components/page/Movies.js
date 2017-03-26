@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Movie from './Movie.js';
 
 class Movies extends Component {
   render() {
@@ -6,7 +7,6 @@ class Movies extends Component {
         <div className={this.props.cNames} onClick={this.props.movieClicked}>
             <div id='sort'>
                 <h1>Movies</h1>
-                <h1>Theater</h1>
             </div>
             <div id='error'>
                 <h1>Error</h1>
@@ -17,15 +17,7 @@ class Movies extends Component {
                 { 
                     this.props.titles.map(function(title, i, props) {
                         return (
-                            <div className="movie movie-show" key={i} data-index={i}>
-                              <img 
-                                  height="360" 
-                                  width="240" 
-                                  src="img/cityweb-small.jpg" 
-                                  alt="should be a movie poster"/>
-
-                              <h2 className="movie-title">{title}</h2>
-                            </div>
+                            <Movie key={i} dataIndex={i} title={title} />
                         );
                     })
                 }
@@ -39,3 +31,4 @@ class Movies extends Component {
 }
 
 export default Movies;
+
