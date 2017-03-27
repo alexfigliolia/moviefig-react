@@ -10,7 +10,7 @@ class Movie extends Component {
 
   componentDidMount(){
   	var m = document.getElementsByClassName('movie');
-	for ( var i=0; i < m.length; i++ ) {
+	  for ( var i=0; i < m.length; i++ ) {
 	    // get function in closure, so i can iterate
 	    var toggleItemMove = this.toggleMove( i );
 	    // reverse stagger order
@@ -26,12 +26,16 @@ class Movie extends Component {
   	var item = m[i];
   	return function() {
 	    item.classList.add('movie-show');
-	}
+	  }
   }
 
   componentWillUnmount(){
   	var m = document.getElementsByClassName('movie');
-  	m.classList.remove('movie-show');
+  	for (var i = 0; i < m.length; i++) {
+      return function() {
+        m[i].classList.remove('movie-show');
+      }
+    }
   }
 
   render() {

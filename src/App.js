@@ -72,6 +72,13 @@ class App extends Component {
     });
   }
 
+  empty(){
+      var node = document.getElementById('movies');
+      while (node.hasChildNodes()) {
+          node.removeChild(node.lastChild);
+      }
+  }
+
   search() {
     var self = this;
     self.setState({
@@ -83,7 +90,9 @@ class App extends Component {
       "headerToggle" : true,
       "searchZipClasses" : "search-zip",
       "searchZipToggle" : true,
-      "isLoading" : "loader-show"
+      "isLoading" : "loader-show",
+      "movieTitles" : [],
+      "movieDescs" : []
     });
     var  d = new Date();
     var today = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
