@@ -7,7 +7,7 @@ import Showtimes from './components/page/Showtimes.js';
 import Back from './components/page/Backtoresults.js';
 import axios from 'axios';
 
-class App extends Component {
+export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -35,7 +35,7 @@ class App extends Component {
     }
   }
 
-  searchToggle(){
+  searchToggle = () => {
     if(this.state.headerToggle === true && this.state.searchZipToggle === true) {
       this.setState({
         "headerClasses" : "header header-hide",
@@ -46,7 +46,7 @@ class App extends Component {
     }
   }
 
-  goHome() {
+  goHome = () => {
     this.setState({
       "bannerClasses" : "banner",
       "bannerToggle" : true,
@@ -55,7 +55,7 @@ class App extends Component {
     });
   }
 
-  goBack() {
+  goBack = () => {
     if(this.state.headerToggle === false && this.state.searchZipToggle === false) {
       this.setState({
         "headerClasses" : "header",
@@ -66,22 +66,21 @@ class App extends Component {
     }
   }
 
-  zipChanged(zip){
+  zipChanged = (zip) => {
     this.setState({
       "zip": zip
     });
   }
 
-  empty(){
+  empty = () => {
       var node = document.getElementById('movies');
       while (node.hasChildNodes()) {
           node.removeChild(node.lastChild);
       }
   }
 
-  search() {
-    var self = this;
-    self.setState({
+  search = () => {
+    this.setState({
       "bannerClasses" : "banner banner-hide",
       "bannerToggle" : false,
       "movieClasses" : 'sResults results-show',
@@ -94,49 +93,49 @@ class App extends Component {
       "movieTitles" : [],
       "movieDescs" : []
     });
-    var  d = new Date();
-    var today = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
-    var zip = self.state.zip;
-    var num = self.state.num;
-    var index = self.state.index;
-    var mT = [];
-    var mD = [];
+    const d = new Date();
+    const today = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+    const zip = this.state.zip;
+    const num = this.state.num;
+    const index = this.state.index;
+    const mT = [];
+    const mD = [];
     axios.get('https://data.tmsapi.com/v1.1/movies/showings?startDate='+ today +'&zip='+ zip +'&radius=10&units=mi&imageSize=Md&api_key=szar7dgf7235f947ujf7dugd')
-      .then(function (response) {
+      .then((response) => {
         document.getElementById('error').style.display = "none";
         // console.log(response);
+        let thisNum;
         if(num > response.data.length - 1) {
-          var thisNum = response.data.length - 1;
+          thisNum = response.data.length - 1;
         } else {
           thisNum = num;
         }
-        for (var i = index; i < thisNum; i++){
+        for (let i = index; i < thisNum; i++){
           mT.push(response.data[i].title);
           mD.push(response.data[i].longDescription);
         }
-        self.setState({
+        this.setState({
           "movieTitles" : mT,
           "movieDescs" : mD,
           "isLoading" : "loader-hide"
         });
       })
-      .catch(function (error) {
+      .catch((error) => {
         document.getElementById('error').style.display = "flex";
         console.log(error);
       });
   }
 
-  loadMore() {
-      var self = this;
-      var  d = new Date();
-      var today = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
-      var zip = self.state.zip;
-      var numLoad = this.state.numLoad;
-      var index = self.state.index;
-      var mT = [];
-      var mD = [];
+  loadMore = () => {
+      const d = new Date();
+      const today = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+      const zip = this.state.zip;
+      const numLoad = this.state.numLoad;
+      const index = this.state.index;
+      const mT = [];
+      const mD = [];
       axios.get('https://data.tmsapi.com/v1.1/movies/showings?startDate='+ today +'&zip='+ zip +'&radius=10&units=mi&imageSize=Md&api_key=szar7dgf7235f947ujf7dugd')
-        .then(function (response) {
+        .then((response) => {
           // console.log(response);
           if(numLoad > response.data.length - 1) {
             var thisNum = response.data.length - 1;
@@ -147,25 +146,25 @@ class App extends Component {
             mT.push(response.data[i].title);
             mD.push(response.data[i].longDescription);
           }
-          self.setState({
+          this.setState({
             "movieTitles" : mT,
             "movieDescs" : mD,
             "numLoad" : numLoad + 12
           });
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error);
         });
   }
 
-  openMovie(e){
+  openMovie = (e) => {
+    const self = this;
     if( e.target.tagName === 'IMG' || e.target.className === 'movie-title' || e.target.className === 'movie movie-show' ) {   
-      var i = e.target.parentNode.dataset.index;
-      var self = this;
-      var  d = new Date();
-      var today = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
-      var zip = self.state.zip;
-      var hours = d.getHours();
+      const i = e.target.parentNode.dataset.index;
+      const d = new Date();
+      const today = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+      const zip = self.state.zip;
+      const hours = d.getHours();
       console.log(hours);
       self.setState({
         "titleClicked" : self.state.movieTitles[i],
@@ -174,30 +173,29 @@ class App extends Component {
         "backClasses" : "backtoresults backtoresults-show"
       });
       axios.get('https://data.tmsapi.com/v1.1/movies/showings?startDate='+ today +'&zip='+ zip +'&radius=10&units=mi&imageSize=Md&api_key=szar7dgf7235f947ujf7dugd')
-        .then(function (response) {
-          var showtimes = [];
-          // console.log(response.data[i].showtimes);
-          var t = [];
-          for (var j = 0; j < response.data[i].showtimes.length; j++){
+        .then((response) => {
+          const showtimes = [];
+          const  t = [];
+          for (let j = 0; j < response.data[i].showtimes.length; j++){
             t.push(response.data[i].showtimes[j].theatre.name)
             // console.log(t);
           }
-          var theaters = t.filter(function(elem, index, self) {
-              return index === self.indexOf(elem);
+          const theaters = t.filter(function(elem, index, self) {
+            return index === self.indexOf(elem);
           });
           theaters.forEach(function(currentValue, index, array) {
-            var st = [currentValue];
-              for (var z = 0; z < response.data[i].showtimes.length; z++) {
-                if(currentValue === response.data[i].showtimes[z].theatre.name) {
-                  var show = response.data[i].showtimes[z].dateTime;
-                  var t = show.substring(11);
-                  var h = t.substring(2, 0);
-                  if(hours < h) {
-                    st.push(formatDate(show));
-                  }
+            const st = [currentValue];
+            for (let z = 0; z < response.data[i].showtimes.length; z++) {
+              if(currentValue === response.data[i].showtimes[z].theatre.name) {
+                const show = response.data[i].showtimes[z].dateTime;
+                const t = show.substring(11);
+                const h = t.substring(2, 0);
+                if(hours < h) {
+                  st.push(formatDate(show));
                 }
               }
-              showtimes.push(st);
+            }
+            showtimes.push(st);
           });
           self.setState({
             "theatersForItem" : theaters,
@@ -211,14 +209,13 @@ class App extends Component {
     }
   }
 
-  backToResults(){
-    var self = this;
-    self.setState({
+  backToResults = () => {
+    this.setState({
       "showtimeClasses" : "showtimes",
       "backClasses" : "backtoresults"
     });
-    setTimeout(function(){
-      self.setState({
+    setTimeout(() => {
+      this.setState({
         "titleClicked" : "",
         "descClicked" : "",
         "theatersForItem" : [],
@@ -231,51 +228,48 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          <Header 
-            cNames={this.state.headerClasses} 
-            searchToggle={this.searchToggle.bind(this)} 
-            goHome={this.goHome.bind(this)} />
+        <Header 
+          cNames={this.state.headerClasses} 
+          searchToggle={this.searchToggle} 
+          goHome={this.goHome} />
 
-          <Search 
-            cNames={this.state.searchZipClasses} 
-            goBack={this.goBack.bind(this)} 
-            zip={this.state.zip} 
-            stateVal={this.state.zip} 
-            onZipChange={this.zipChanged.bind(this)} 
-            searchZip={this.search.bind(this)} />
+        <Search 
+          cNames={this.state.searchZipClasses} 
+          goBack={this.goBack} 
+          zip={this.state.zip} 
+          stateVal={this.state.zip} 
+          onZipChange={this.zipChanged} 
+          searchZip={this.search} />
 
-          <Banner 
-            cNames={this.state.bannerClasses}
-            searchToggle={this.searchToggle.bind(this)} />
+        <Banner 
+          cNames={this.state.bannerClasses}
+          searchToggle={this.searchToggle} />
 
-          <Movies 
-            cNames={this.state.movieClasses} 
-            titles={this.state.movieTitles}
-            descriptions={this.state.movieDescs} 
-            number={this.state.num}
-            index={this.state.index} 
-            loadMore={this.loadMore.bind(this)} 
-            isLoading={this.state.isLoading}
-            movieClicked={this.openMovie.bind(this)} 
-            goHome={this.goHome.bind(this)} />
+        <Movies 
+          cNames={this.state.movieClasses} 
+          titles={this.state.movieTitles}
+          descriptions={this.state.movieDescs} 
+          number={this.state.num}
+          index={this.state.index} 
+          loadMore={this.loadMore} 
+          isLoading={this.state.isLoading}
+          movieClicked={this.openMovie} 
+          goHome={this.goHome} />
 
-          <Showtimes 
-            cNames={this.state.showtimeClasses}
-            title={this.state.titleClicked}
-            description={this.state.descClicked} 
-            theaters={this.state.theatersForItem}
-            showtimes={this.state.showtimes} />
+        <Showtimes 
+          cNames={this.state.showtimeClasses}
+          title={this.state.titleClicked}
+          description={this.state.descClicked} 
+          theaters={this.state.theatersForItem}
+          showtimes={this.state.showtimes} />
 
-          <Back 
-            cNames={this.state.backClasses} 
-            back={this.backToResults.bind(this)} />
+        <Back 
+          cNames={this.state.backClasses} 
+          back={this.backToResults} />
       </div>
     );
   }
 }
-
-
-export default App;
 
 function formatDate(date) {
   var t = date.substring(11);

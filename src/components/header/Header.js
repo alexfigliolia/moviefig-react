@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-class Header extends Component {
-
-  render() {
+export default class Header extends Component {
+  render = () => {
     return (
       <header id='header' className={this.props.cNames}>
         <h1 onClick={this.props.goHome}>MOVIE FIG</h1>
@@ -13,5 +12,3 @@ class Header extends Component {
     );
   }
 }
-
-export default Header;

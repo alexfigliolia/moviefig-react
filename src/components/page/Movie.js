@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Movie extends Component {
+export default class Movie extends Component {
   constructor(props){
   	super(props);
   	this.state = {
@@ -9,12 +9,12 @@ class Movie extends Component {
   }
 
   componentDidMount(){
-  	var m = document.getElementsByClassName('movie');
-	  for ( var i=0; i < m.length; i++ ) {
+  	this.m = document.getElementsByClassName('movie');
+	  for ( var i=0; i < this.m.length; i++ ) {
 	    // get function in closure, so i can iterate
-	    var toggleItemMove = this.toggleMove( i );
+	    const toggleItemMove = this.toggleMove( i );
 	    // reverse stagger order
-	    var delay = m.length - i - 1;
+	    let delay = this.m.length - i - 1;
 	    delay *= 50;
 	    // stagger transition with setTimeout
 	    setTimeout( toggleItemMove, delay );
@@ -22,35 +22,31 @@ class Movie extends Component {
   }
 
   toggleMove(i){
-  	var m = document.getElementsByClassName('movie');
-  	var item = m[i];
+  	const item = this.m[i];
   	return function() {
 	    item.classList.add('movie-show');
 	  }
   }
 
   componentWillUnmount(){
-  	var m = document.getElementsByClassName('movie');
-  	for (var i = 0; i < m.length; i++) {
+  	for (let i = 0; i < this.m.length; i++) {
       return function() {
-        m[i].classList.remove('movie-show');
+        this.m[i].classList.remove('movie-show');
       }
     }
   }
 
-  render() {
+  render = () => {
     return (
         <div className={this.state.movieClass} data-index={this.props.dataIndex}>
           <img 
-              height="360" 
-              width="240" 
-              src="img/cityweb-small.jpg" 
-              alt="should be a movie poster"/>
+            height="360" 
+            width="240" 
+            src="img/cityweb-small.jpg" 
+            alt="should be a movie poster"/>
 
           <h2 className="movie-title">{this.props.title}</h2>
         </div>
     );
   }
 }
-
-export default Movie;
